@@ -1,21 +1,19 @@
-/* FSR testing sketch. 
- 
-Connect one end of FSR to 5V, the other end to Analog 0.
-Then connect one end of a 10K resistor from Analog 0 to ground
-Connect LED from pin 11 through a resistor to ground 
- 
-For more information see www.ladyada.net/learn/sensors/fsr.html */
- 
-int fsrAnalogPin = 0; // FSR is connected to analog 0
-int fsrReading;      // the analog reading from the FSR resistor divider
+
+int ffsrAnalogPin = A0; // FSR is connected to analog 0
+int sfsrAnalogPin = A7; // FSR is connected to analog 7
+int ffsrReading;      // the analog reading from the FSR resistor divider
+int sfsrReading;      // the analog reading from the FSR resistor divider
  
 void setup(void) {
   Serial.begin(9600);   // We'll send debugging information via the Serial monitor
 }
  
 void loop(void) {
-  fsrReading = analogRead(fsrAnalogPin);
-  Serial.print("Analog reading = ");
-  Serial.println(fsrReading);
-  delay(50);
+  ffsrReading = analogRead(ffsrAnalogPin);
+  sfsrReading = analogRead(sfsrAnalogPin);
+  Serial.print("Analog reading1 = ");
+  Serial.print(ffsrReading);
+  Serial.print(" Analod reading2 = ");
+  Serial.println(sfsrReading);
+  delay(150);
 }
