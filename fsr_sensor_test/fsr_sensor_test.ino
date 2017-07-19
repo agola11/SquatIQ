@@ -1,19 +1,37 @@
 
-int ffsrAnalogPin = A0; // FSR is connected to analog 0
-int sfsrAnalogPin = A7; // FSR is connected to analog 7
-int ffsrReading;      // the analog reading from the FSR resistor divider
-int sfsrReading;      // the analog reading from the FSR resistor divider
+int fsrAnalogPin0 = A0; // FSR is connected to analog 0
+int fsrAnalogPin1 = A1;
+int fsrAnalogPin2 = A2; 
+int fsrAnalogPin3 = A3; 
+int fsrAnalogPin4 = A4;  
+
+int fsrReading0;
+int fsrReading1;
+int fsrReading2;
+int fsrReading3;
+int fsrReading4;
+
  
 void setup(void) {
   Serial.begin(9600);   // We'll send debugging information via the Serial monitor
 }
  
 void loop(void) {
-  ffsrReading = analogRead(ffsrAnalogPin);
-  sfsrReading = analogRead(sfsrAnalogPin);
-  Serial.print("Analog reading1 = ");
-  Serial.print(ffsrReading);
-  Serial.print(" Analod reading2 = ");
-  Serial.println(sfsrReading);
-  delay(150);
+  fsrReading0 = analogRead(fsrAnalogPin0);
+  fsrReading1 = analogRead(fsrAnalogPin1);
+  fsrReading2 = analogRead(fsrAnalogPin2);
+  fsrReading3 = analogRead(fsrAnalogPin3);
+  fsrReading4 = analogRead(fsrAnalogPin4);
+
+  Serial.print(fsrReading0);
+  Serial.print(", ");
+  Serial.print(fsrReading1);
+  Serial.print(", ");
+  Serial.print(fsrReading2);
+  Serial.print(", ");
+  Serial.print(fsrReading3);
+  Serial.print(", ");
+  Serial.println(fsrReading4);
+  
+  delay(5);
 }
