@@ -8,7 +8,7 @@ ser = serial.Serial(PORT, BAUDE)
 
 ack = input("Press any key to start recording data.")
 print("Recording...")
-with open('experimentation/heel_lift_pronation_end.csv', 'w', newline='') as csvfile:
+with open('experimentation/raw_sensor_data/testing/clock.csv', 'w', newline='') as csvfile:
 	writer = csv.writer(csvfile)
 	try:
 		while True:
