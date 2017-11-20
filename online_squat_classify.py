@@ -5,7 +5,7 @@ import csv
 import serial
 import numpy as np
 
-PORT = '/dev/cu.usbmodem1421'
+PORT = '/dev/cu.usbmodem1411'
 BAUDE = 9600
 OFFSET = 5
 NUM_SENSORS = 5

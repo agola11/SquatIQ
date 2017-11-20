@@ -5,8 +5,10 @@ from time import sleep
 import csv
 import serial
 import numpy as np
+import json
 
 PORT = '/dev/cu.usbmodem1411'
+FILE = 'squat_file'
 BAUDE = 9600
 OFFSET = 5
 NUM_SENSORS = 5
@@ -18,7 +20,6 @@ classes_inv = {0:'hlpron', 1:'hlsup', 2:'sup', 3:'heellift', 4:'pron', 5: 'heeld
 
 # Return a dictionary with events
 def classify_events(X):
-	#print(X)
 	Z_scores = clf.predict_proba(X)
 	Z_bin = clf.predict(X)
 	mult_scores = np.multiply(Z_scores, Z_bin)
@@ -37,6 +38,7 @@ def classify_events(X):
 def main():
 	ser = serial.Serial(PORT, BAUDE)
 	clf = joblib.load(clf_pkl)
+	file = open(FILE, 'w')
 
 	ack = input("Press any key to start system.")
 	print("Starting...")
@@ -135,18 +137,24 @@ def main():
 				if current_accel >= prev_accel + ACCEL_THRESH:
 					# ascent
 					percentage = (current_accel - bottom_mean) / (upright_mean - bottom_mean)
-					print ("ASCENT: " + str(percentage))
+					file.write("ASCENT: " + str(percentage))
+					print("ASCENT: " + str(percentage))
 				elif current_accel <= prev_accel - ACCEL_THRESH:
 					# descent
 					percentage = (upright_mean - current_accel) / (upright_mean - bottom_mean)
-					print ("DESCENT: " + str(percentage))
+					print("DESCENT: " + str(percentage))
+					file.write("DESCENT: " + str(percentage))
 				else:
 					# stable
-					print ("STABLE")
+					print("STABLE: " + str(current_accel))
+					file.write("STABLE: " + str(current_accel))
 				prev_accel = current_accel
 				accel_buffer = []
 				X = []
-				print(str(events) + ", ")
+				file.write(", ")
+				file.write(json.dumps(events))
+				file.write('\n')
+				print(str(events))
 				print("_____________________")
 	except KeyboardInterrupt:
 		print("Stopping...")
